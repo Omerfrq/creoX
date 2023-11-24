@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body,
+#__next {
+  height: 100vh;
+}
+
+.bg-button {
+  background: radial-gradient(
+    36.8% 100.97% at 29.11% 12.06%,
+    #8d5bb8 33%,
+    #704cc5 100%
+  );
+}
+
+.bg-gradient {
+  background: radial-gradient(
+    209.13% 100% at 49.87% 0%,
+    #464067 0%,
+    #000212 48.5%
+  ) !important;
+}
+
+.btn-bg-gradient {
+  background: radial-gradient(
+    49.52% 135.87% at 49.64% 0%,
+    #8d5bb8 33.42%,
+    #704cc5 100%
+  );
+}

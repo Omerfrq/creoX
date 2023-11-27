@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {
   CakeAI,
-  CakeAIData,
   Customer,
   GenerationHistory,
   TapPaymentCard,
@@ -70,11 +69,11 @@ export class Api {
   };
 
   text2ImageV2 = async (
-    payload: CakeAIData,
+    payload: { keywords: string[]; category: 'TSHIRT' },
     signal?: AbortSignal
   ): Promise<CakeAI | undefined> => {
     try {
-      return fetch(`${WELCOME_MSG_URL}/generate-images`, {
+      return fetch(`${WELCOME_MSG_URL}/generate-images2`, {
         method: 'post',
         signal,
         body: JSON.stringify(payload),

@@ -14,7 +14,7 @@ const Home = () => {
       </Head>
       <div className='flex flex-col items-center justify-center'>
         <div className='relative h-[36vh] w-full mt-12'>
-          <Image src={'/cake-welcome.svg'} alt='cake' layout='fill' priority />
+          <Image src={'/tshirt.svg'} alt='cake' layout='fill' priority />
         </div>
         <h1 className='text-4xl font-semibold'>Welcome to</h1>
         <img

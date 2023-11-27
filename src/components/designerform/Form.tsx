@@ -17,7 +17,7 @@ export const DesignerForm = () => {
   } = useForm<{ keywords: any[]; category: string }>({
     defaultValues: {
       category: 'TSHIRT',
-      keywords: ['Hello'],
+      keywords: ['TShirt'],
     },
   });
 
@@ -36,7 +36,6 @@ export const DesignerForm = () => {
 
   const onSubmit = (data) => {
     setPayload(data);
-    console.log(data);
 
     setOpen(true);
 
@@ -70,7 +69,7 @@ export const DesignerForm = () => {
         <form onSubmit={handleSubmit(onSubmit)} id='cake-ai-form'>
           <div>
             <div className='font-semibold text-white'>
-              Describe your project (English only)
+              Please enter keywords to describe your T-shirt.
             </div>
             <div className='my-7'>
               <div>

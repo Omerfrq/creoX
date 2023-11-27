@@ -60,7 +60,7 @@ const Output = ({ details, isLoading, onClose, onRefresh, payload }: Props) => {
                     },
                     autoplay: true,
                     loop: true,
-                    path: 'https://lottie.host/0aae74fa-c3bd-4eed-829f-46b6e2e15889/YqjpuSbxct.json',
+                    path: 'https://lottie.host/5554e3b2-9c98-4a33-8bd8-f0c3c3da0222/fR8ZDWX0SQ.json',
                   }}
                 />
 

@@ -44,10 +44,10 @@ export const Cart = () => {
                     <div>T-Shirt</div>
                     <div>$ 19.99</div>
                   </div>
-                  <div className='text-sm mt-2 mb-1 flex space-x-1'>
+                  {/* <div className='text-sm mt-2 mb-1 flex space-x-1'>
                     <div>Style</div>
                     <div className='text-gray-400'>Men's Cut</div>
-                  </div>
+                  </div> */}
                   <div className='text-sm flex mb-1 space-x-1'>
                     <div>Color</div>
                     <div className='text-gray-400'>White</div>

@@ -7,7 +7,7 @@ import { Lato } from 'next/font/google';
 import { AppStatus } from '../components/appstatus/AppStatus';
 import { Alert } from '../components/common/Alert';
 import { CartProvider } from 'react-use-cart';
-import { Cart } from '../components/cart';
+// import { Cart } from '../components/cart';
 
 const inter = Lato({
   subsets: ['latin'],
@@ -35,7 +35,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             <main className={`${inter.variable} h-full font-sans`}>
               <AppStatus />
               <Alert />
-              <Cart />
+              {/* <Cart /> */}
               <Component {...pageProps} />
             </main>
           </Hydrate>

@@ -7,7 +7,6 @@ export const useCreateOrder = () => {
   const dispatch = useDispatch();
 
   const mutation = useMutation(Api.createOrder, {
-    onSuccess: async (data) => {},
     onError: (error: { error_description: string }) => {
       if (error) {
         dispatch(

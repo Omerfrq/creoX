@@ -1,7 +1,8 @@
+import React from 'react';
 import Head from 'next/head';
+import { Sigmar_One } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Sigmar_One } from 'next/font/google';
 
 const sigmar = Sigmar_One({
   subsets: ['latin'],
@@ -9,17 +10,17 @@ const sigmar = Sigmar_One({
   variable: '--font-sigmar',
 });
 
-const Home = () => {
+const Success = () => {
   return (
     <div className='p-4 bg-gradient h-screen text-white'>
       <Head>
-        <title>AI Cake Generator</title>
+        <title>Sucess</title>
       </Head>
 
       <div className='flex flex-col h-full justify-between'>
         <div>
           <div className='relative h-[36vh] w-full mt-12'>
-            <Image src={'/tshirt.svg'} alt='cake' layout='fill' priority />
+            <Image src={'/hurray.svg'} alt='cake' layout='fill' priority />
           </div>
 
           <h1
@@ -38,12 +39,11 @@ const Home = () => {
             className='px-8 py-4 w-full flex justify-center items-center  capitalize text-black bg-primary rounded-full font-normal'
             href='/generate-project'
           >
-            Let the weirdness Begin
+            Sounds Good
           </Link>
         </div>
       </div>
     </div>
   );
 };
-
-export default Home;
+export default Success;

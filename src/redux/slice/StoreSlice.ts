@@ -10,6 +10,7 @@ interface StoreSlice {
   primaryLanguage: string;
   deliveryAddress?: string;
   orderType?: string;
+  openCart: boolean;
 }
 
 const initialState: StoreSlice = {
@@ -18,6 +19,7 @@ const initialState: StoreSlice = {
   primaryLanguage: 'en',
   deliveryAddress: undefined,
   orderType: 'PICKUP',
+  openCart: false,
 };
 
 const storeSlice = createSlice({
@@ -39,6 +41,12 @@ const storeSlice = createSlice({
     setOrderType: (state, action) => {
       state.orderType = action.payload;
     },
+    openCart: (state) => {
+      state.openCart = true;
+    },
+    closeCart: (state) => {
+      state.openCart = false;
+    },
   },
 });
 
@@ -46,6 +54,8 @@ export type StoreActions = typeof storeSlice.actions;
 
 export const {
   setUser,
+  openCart,
+  closeCart,
   setCurrentSelectedCardId,
   setDeliveryAddress,
   setOrderType,

@@ -1,5 +1,4 @@
 import { useAppDispatch, useAppSelector } from '@/src/redux/store';
-import { useRouter } from 'next/router';
 import Helpers from 'foodbit-helpers';
 import dayjs from 'dayjs';
 import { useState } from 'react';
@@ -12,9 +11,9 @@ import { setAlert } from '@/src/redux/slice/AlertSlice';
 import { useCreateOrder } from '@/src/hooks/useCreateOrder';
 import { useDialog } from '@/src/hooks/useDialog';
 import BottomSheet from '../common/BottomSheet';
-import { SavedCards } from '../payments/SavedCards';
 import type { Vendor as VendorType } from '@/src/types/helpers';
 import { Loader } from '../common/Loader';
+import { Stripe } from '../payments/Stripe';
 
 export const VendorDetails = ({
   vendor,
@@ -73,31 +72,20 @@ export const VendorDetails = ({
 
   const { labelOrDefault } = Helpers.StringsHelper;
 
-  const router = useRouter();
-
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = (id: string) => {
     const payload = {
       paymentTransaction: {
         method: 'ONLINE',
         customerId: user?.id,
+        id,
       },
-      // isPendingPayment: false,
       items: [
         {
           imageUrl,
         },
       ],
-      // total: 7,
-      // subtotal: 7,
       merchantId: vendor.id,
       store: { id: vendor.mainStoreId },
-      // tax: {
-      //   id: 'b9c8c909-e9f1-4d05-833f-54ea1501fc4c',
-      //   createdDate: '2023-08-10T04:19:54.177Z',
-      //   percentage: 5,
-      //   isTaxIncludedInPrices: true,
-      //   value: 0.3333333333333339,
-      // },
       pickup: { type: 'IN_STORE' },
       type: 'PICKUP',
       delivery: deliveryAddress
@@ -325,37 +313,7 @@ export const VendorDetails = ({
           </div>
         </div>
 
-        <SavedCards />
-
-        {/* <div>
-          <div className="p-3 bg-gray-200/10 rounded-md flex-col space-y-2">
-            <div className="flex justify-between text-sm">
-              <div className="font-medium">Subtotal</div>
-              <div className="text-gray-500">{vendor.price} SAR</div>
-            </div>
-            <div className="flex justify-between text-sm">
-              <div className="font-medium">Tax</div>
-              <div className="text-gray-500">{vendor.price / 10} SAR</div>
-            </div>
-            <div className="flex justify-between text-base font-semibold">
-              <div className="font-medium">Total</div>
-              <div className="text-white">{vendor.price + vendor.price / 10} SAR</div>
-            </div>
-          </div>
-        </div> */}
-      </div>
-
-      <div className='relative'>
-        <button
-          type='button'
-          onClick={() => {
-            handlePlaceOrder();
-          }}
-          disabled={mutation.isLoading}
-          className='mt-7 relative shadow-sm flex items-center justify-center w-full bg-button p-4 rounded-md text-white text-xl font-medium '
-        >
-          Place Order
-        </button>
+        <Stripe onPaymentComplete={handlePlaceOrder} />
       </div>
     </div>
   );

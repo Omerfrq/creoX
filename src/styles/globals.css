@@ -15,11 +15,19 @@ body,
   );
 }
 
+.rdp {
+  margin: 0px !important;
+}
+
+.rdp-table {
+  width: 100% !important;
+}
+
 .bg-gradient {
   background: radial-gradient(
-    209.13% 100% at 49.87% 0%,
-    #464067 0%,
-    #000212 48.5%
+    209.13% 100% at 50% 0%,
+    #25275d 0%,
+    #000111 100%
   ) !important;
 }
 

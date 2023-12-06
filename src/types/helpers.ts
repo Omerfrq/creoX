@@ -135,3 +135,18 @@ export interface Vendor {
   previousCateringWork: PreviousWork[];
   designComplexity?: DesignComplexityType[];
 }
+
+interface MediaItem {
+  url: string;
+  shareUrl: string;
+}
+
+export interface Generation {
+  id: string;
+  createdDate: string;
+  value: MediaItem[];
+  status: string;
+  userId: string;
+  keywords: string[];
+  style: string;
+}

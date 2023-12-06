@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   CakeAI,
   Customer,
+  Generation,
   GenerationHistory,
   TapPaymentCard,
   Vendor,
@@ -47,6 +48,16 @@ export class Api {
     }
   };
 
+  fetchExamples = async () => {
+    try {
+      const res = await axios.get<Generation[]>(`${API_URL}/generation/examples
+      `);
+      return res.data;
+    } catch (err) {
+      AxiosErrorValidate(err);
+    }
+  };
+
   createOrder = async (order: any) => {
     try {
       const res = await axios.post(`${API_URL}/v2/orders`, order);
@@ -62,6 +73,40 @@ export class Api {
   ): Promise<TapPaymentCard[] | undefined> => {
     try {
       const res = await axios.get(`${API_URL}/users/${customerId}/payments`);
+      return res.data;
+    } catch (err) {
+      AxiosErrorValidate(err);
+    }
+  };
+
+  generationImage = async (payload: {
+    keywords: string[];
+    category: 'TSHIRT';
+    style: string;
+  }) => {
+    try {
+      const res = await axios.post(
+        `${API_URL}/generation/try`,
+        payload
+        // {
+        //   headers: {
+        //     Authorization: `Bearer 08505d9d-1eb2-4033-a6de-5812f875dfde`,
+        //   },
+        // }
+      );
+      return res.data;
+    } catch (err) {
+      AxiosErrorValidate(err);
+    }
+  };
+
+  generationImageDetails = async (id: string) => {
+    try {
+      const res = await axios.get(`${API_URL}/generation/${id}`, {
+        headers: {
+          Authorization: `Bearer 08505d9d-1eb2-4033-a6de-5812f875dfde`,
+        },
+      });
       return res.data;
     } catch (err) {
       AxiosErrorValidate(err);
@@ -144,6 +189,19 @@ export class Api {
           },
         }
       );
+      return res.data;
+    } catch (err) {
+      AxiosErrorValidate(err);
+    }
+  };
+
+  preSignup = async (payload: {
+    emailAddress: string;
+    generations: string[];
+    productCategory: string;
+  }) => {
+    try {
+      const res = await axios.post(`${API_URL}/pre-signups`, payload);
       return res.data;
     } catch (err) {
       AxiosErrorValidate(err);

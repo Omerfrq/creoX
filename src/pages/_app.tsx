@@ -3,15 +3,18 @@ import '../styles/globals.css';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
 import StoreProvider from '../providers/StoreProvider';
-import { Open_Sans } from 'next/font/google';
-import Script from 'next/script';
+import { Lato } from 'next/font/google';
 import { AppStatus } from '../components/appstatus/AppStatus';
 import { Alert } from '../components/common/Alert';
+import { CartProvider } from 'react-use-cart';
+import { Cart } from '../components/cart';
 
-const inter = Open_Sans({
-  subsets: ['cyrillic'],
+const inter = Lato({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '700', '900'],
   variable: '--font-inter',
 });
+
 export default function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
     () =>
@@ -25,20 +28,19 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   );
 
   return (
-    <StoreProvider>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <main className={`${inter.variable} h-full font-sans`}>
-            <AppStatus />
-            <Alert />
-            <Component {...pageProps} />
-            <Script
-              src='https://secure.gosell.io/js/sdk/tap.min.js'
-              strategy='afterInteractive'
-            />
-          </main>
-        </Hydrate>
-      </QueryClientProvider>
-    </StoreProvider>
+    <CartProvider>
+      <StoreProvider>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <main className={`${inter.variable} h-full font-sans`}>
+              <AppStatus />
+              <Alert />
+              <Cart />
+              <Component {...pageProps} />
+            </main>
+          </Hydrate>
+        </QueryClientProvider>
+      </StoreProvider>
+    </CartProvider>
   );
 }

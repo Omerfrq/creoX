@@ -10,8 +10,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#02FAE4',
+      },
       fontFamily: {
         sans: ['var(--font-inter)'],
+        sigmarOne: ['var(--font-sigmar)'],
         mono: ['var(--font-roboto-mono)'],
       },
     },

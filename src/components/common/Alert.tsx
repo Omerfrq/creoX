@@ -66,7 +66,7 @@ export const Alert = () => {
                     <p className='mt-1 text-sm text-gray-500'>{description}</p>
                   ) : null}
                 </div>
-                <div className='ml-4 flex-shrink-0 flex'>
+                {/* <div className='ml-4 flex-shrink-0 flex'>
                   <button
                     type='button'
                     className='bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
@@ -75,7 +75,7 @@ export const Alert = () => {
                     <span className='sr-only'>Close</span>
                     <XMarkIcon className='h-5 w-5' aria-hidden='true' />
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

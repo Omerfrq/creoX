@@ -148,7 +148,7 @@ export const DesignerForm = () => {
         <div>
           <div className='flex mt-5 items-center justify-between'>
             <div className={`${sigmar.variable}  text-white font-sigmarOne`}>
-              Let's Begin
+              {`Let's Begin`}
             </div>
           </div>
 

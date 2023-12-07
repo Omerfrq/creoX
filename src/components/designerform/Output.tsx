@@ -2,8 +2,6 @@ import { classNames } from '@/src/utils/helpers';
 import React, { useState, useEffect } from 'react';
 import {
   ArrowPathIcon,
-  InformationCircleIcon,
-  PencilIcon,
   RectangleStackIcon,
   ShareIcon,
 } from '@heroicons/react/24/outline';
@@ -13,7 +11,6 @@ import { Generation } from '@/src/types/helpers';
 import { LottieLoader } from '../common/LottieLoader';
 import { Preview } from './Preview';
 import BottomSheet from '../common/BottomSheet';
-import { PresignForm } from '../presignupform/PresignupForm';
 import { ComingSoonForm } from '../presignupform/ComingSoonForm';
 
 const categories = [
@@ -161,19 +158,19 @@ const Output = ({ details, isLoading, onClose, onRefresh }: Props) => {
                     },
                     autoplay: true,
                     loop: true,
-                    path: 'https://lottie.host/5554e3b2-9c98-4a33-8bd8-f0c3c3da0222/fR8ZDWX0SQ.json',
+                    path: '/blink-loading.json',
                   }}
                 />
 
                 <div className='flex w-full h-full flex-col -mt-2'>
                   <div className='animate-pulse w-full h-full max-h-full bg-gray-300' />
-                  <p className='text-sm text-center font-medium'>
-                    Hold tight. Almost there.
+                  <p className='text-xl text-center font-medium'>
+                    Generating Weirdness....
                   </p>
                 </div>
 
                 {LOADING_FACTS.length > 0 && (
-                  <div className='text-center text-gray-500 text-sm mt-4'>
+                  <div className='text-center text-gray-500 text-sm mt-1'>
                     {LOADING_FACTS[currentFactIndex]}
                   </div>
                 )}
@@ -181,7 +178,7 @@ const Output = ({ details, isLoading, onClose, onRefresh }: Props) => {
             )}
 
             {!isLoading ? (
-              <div className='relative rounded-md h-[350px] w-full'>
+              <div className='relative mt-4 rounded-md h-[350px] w-full'>
                 {!isLoading ? (
                   <img
                     className={classNames(
@@ -199,7 +196,7 @@ const Output = ({ details, isLoading, onClose, onRefresh }: Props) => {
               </div>
             ) : null}
 
-            {!isLoading ? (
+            {isLoading ? (
               <div className='mt-8'>
                 <div className='flex justify-between text-white'>
                   <div className='flex items-center justify-center flex-col'>

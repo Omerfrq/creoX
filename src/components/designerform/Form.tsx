@@ -77,7 +77,7 @@ export const DesignerForm = () => {
 
     mutation.mutateAsync(sentPayload, {
       onSuccess: (data) => {
-        if (data?.status !== 'error') {
+        if (data?.status !== 'error' || data.error) {
           setId(data.id);
           setEnabled(true);
         } else {
@@ -132,16 +132,16 @@ export const DesignerForm = () => {
       </BottomSheet>
       <BottomSheet open={open} onClose={onCloseBottomSheet}>
         <BottomSheet.Content>
-          {/* {error || isError ? (
+          {error || isError ? (
             <BuyCredits onClose={onCloseBottomSheet} />
-          ) : ( */}
-          <Output
-            details={data}
-            isLoading={loading || mutation.isLoading}
-            onClose={onCloseBottomSheet}
-            onRefresh={handleSubmit(onSubmit)}
-          />
-          {/* )} */}
+          ) : (
+            <Output
+              details={data}
+              isLoading={loading || mutation.isLoading}
+              onClose={onCloseBottomSheet}
+              onRefresh={handleSubmit(onSubmit)}
+            />
+          )}
         </BottomSheet.Content>
       </BottomSheet>
       <div className='flex-1'>

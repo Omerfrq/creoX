@@ -16,6 +16,7 @@
     "@stripe/react-stripe-js": "^2.4.0",
     "@stripe/stripe-js": "^2.2.0",
     "axios": "^1.6.2",
+    "copy-to-clipboard": "^3.3.3",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",
     "foodbit-helpers": "^1.0.23",

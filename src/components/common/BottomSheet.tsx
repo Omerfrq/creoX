@@ -42,14 +42,14 @@ const BottomSheetContent = ({
       <Drawer.Overlay className='fixed inset-0 bg-black/40' />
       <Drawer.Content
         className={classNames(
-          'bg-zinc-100 font-sans flex flex-col z-[10000000] fixed bottom-0 left-0 right-0',
+          'font-sans rounded-md flex flex-col z-[10000000] fixed bottom-0 left-0 right-0',
           height,
           inter.variable
         )}
       >
         <div
           className={classNames(
-            ' bg-gradient shadow-sm  text-white flex-1 overflow-auto'
+            ' bg-gradient shadow-sm rounded-xl text-white flex-1 overflow-auto'
           )}
         >
           <div className='pt-2 relative'>

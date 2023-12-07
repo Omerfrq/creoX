@@ -5,13 +5,15 @@ import {
   RectangleStackIcon,
   ShareIcon,
 } from '@heroicons/react/24/outline';
-
+import copyToClipboard from 'copy-to-clipboard';
 import { LOADING_FACTS } from '@/src/utils/const';
 import { Generation } from '@/src/types/helpers';
 import { LottieLoader } from '../common/LottieLoader';
 import { Preview } from './Preview';
 import BottomSheet from '../common/BottomSheet';
 import { ComingSoonForm } from '../presignupform/ComingSoonForm';
+import { CheckCircleIcon } from '@heroicons/react/20/solid';
+import { useDialog } from '@/src/hooks/useDialog';
 
 const categories = [
   {
@@ -43,46 +45,21 @@ interface Props {
   onRefresh: () => Promise<void>;
 }
 
-const urlToObject = async (url: string) => {
-  const response = await fetch(url);
-  const blob = await response.blob();
-  const file = new File([blob], 'image.jpg', { type: blob.type });
-  return file;
-};
-
-async function testWebShare({ text, files: filesUrl }) {
-  let files;
-  // Test compatibility
-  if (navigator.share === undefined) {
-    console.log('Unsupported share feature');
-    return;
-  }
-
-  // Handle file urls
-  if (filesUrl && filesUrl.length > 0) {
-    const filesGetter = filesUrl.map((file) => urlToObject(file));
-    const newFiles = await Promise.all(filesGetter);
-
-    if (!navigator.canShare || !navigator.canShare({ files: newFiles })) {
-      console.log('Unsupported share feature');
-      return;
-    }
-
-    files = newFiles;
-  }
-
-  // Share content
-  try {
-    await navigator.share({ text, files });
-  } catch (error) {
-    console.log(`Error sharing: ${error}`);
-  }
-}
-
 const Output = ({ details, isLoading, onClose, onRefresh }: Props) => {
   const { value } = details ?? {};
 
-  console.log(details);
+  const [copy, setCopy] = useState(false);
+
+  const { openDialog, handleClose, handleOpen } = useDialog();
+  const copyText = () => {
+    if (value?.[0].shareUrl) {
+      copyToClipboard(value?.[0].shareUrl);
+      setCopy(true);
+      setTimeout(() => {
+        setCopy(false);
+      }, 1000);
+    }
+  };
 
   const imageUrl = value?.[0]?.url;
 
@@ -118,6 +95,38 @@ const Output = ({ details, isLoading, onClose, onRefresh }: Props) => {
       <BottomSheet open={openModal} onClose={onCloseModal}>
         <BottomSheet.Content>
           <ComingSoonForm imageUrl={imageUrl as string} />
+        </BottomSheet.Content>
+      </BottomSheet>
+
+      <BottomSheet onClose={handleClose} open={openDialog}>
+        <BottomSheet.Content height='auto'>
+          <div className='px-4 py-5 w-full'>
+            <div className='mt-1 flex rounded-md shadow-sm '>
+              <input
+                value={details?.value[0].shareUrl}
+                disabled
+                type='text'
+                name='company-website'
+                id='company-website'
+                className='text-white bg-gray-50/10 w-full focus:ring-2 p-4 rounded-l-md  outline-none  border-0 focus:ring-indigo-500'
+                placeholder='www.example.com'
+              />
+              <button
+                onClick={copyText}
+                className='flex  bg-gray-50/10 items-center px-3 rounded-r-md border-l border-gray-50/20   text-sm'
+              >
+                {copy ? (
+                  <p className='flex items-center text-sm '>
+                    <CheckCircleIcon
+                      className='h-6 w-6 flex-shrink-0 text-green-400'
+                      aria-hidden='true'
+                    />
+                  </p>
+                ) : null}
+                <span className='ml-2'>{copy ? 'Copied' : 'Copy'}</span>
+              </button>
+            </div>
+          </div>
         </BottomSheet.Content>
       </BottomSheet>
 
@@ -196,7 +205,7 @@ const Output = ({ details, isLoading, onClose, onRefresh }: Props) => {
               </div>
             ) : null}
 
-            {isLoading ? (
+            {!isLoading ? (
               <div className='mt-8'>
                 <div className='flex justify-between text-white'>
                   <div className='flex items-center justify-center flex-col'>
@@ -225,14 +234,7 @@ const Output = ({ details, isLoading, onClose, onRefresh }: Props) => {
                   <div className='flex items-center justify-center flex-col'>
                     <button
                       className='flex bg-gray-50/10 items-center justify-center rounded-full w-10 h-10 shadow'
-                      onClick={() => {
-                        testWebShare({
-                          text: 'Weird Collective',
-                          files:
-                            imageUrl ??
-                            'https://dev-medias-bucket-original.s3.amazonaws.com/share/4e79f75e-11ba-4790-b8d2-9be77d738c83.png',
-                        });
-                      }}
+                      onClick={handleOpen}
                     >
                       <ShareIcon strokeWidth={2} className='w-5 h-5' />
                     </button>
@@ -241,23 +243,6 @@ const Output = ({ details, isLoading, onClose, onRefresh }: Props) => {
                 </div>
               </div>
             ) : null}
-          </div>
-
-          <div className='flex items-center justify-center flex-col'>
-            <button
-              className='flex bg-gray-50/10 items-center justify-center rounded-full w-10 h-10 shadow'
-              onClick={() => {
-                testWebShare({
-                  text: 'Weird Collective',
-                  files:
-                    imageUrl ??
-                    'https://dev-medias-bucket-original.s3.amazonaws.com/share/4e79f75e-11ba-4790-b8d2-9be77d738c83.png',
-                });
-              }}
-            >
-              <ShareIcon strokeWidth={2} className='w-5 h-5' />
-            </button>
-            <div className='text-xs mt-2'>Share</div>
           </div>
 
           {!isLoading ? (

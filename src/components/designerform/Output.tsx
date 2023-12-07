@@ -243,6 +243,23 @@ const Output = ({ details, isLoading, onClose, onRefresh }: Props) => {
             ) : null}
           </div>
 
+          <div className='flex items-center justify-center flex-col'>
+            <button
+              className='flex bg-gray-50/10 items-center justify-center rounded-full w-10 h-10 shadow'
+              onClick={() => {
+                testWebShare({
+                  text: 'Weird Collective',
+                  files:
+                    imageUrl ??
+                    'https://dev-medias-bucket-original.s3.amazonaws.com/share/4e79f75e-11ba-4790-b8d2-9be77d738c83.png',
+                });
+              }}
+            >
+              <ShareIcon strokeWidth={2} className='w-5 h-5' />
+            </button>
+            <div className='text-xs mt-2'>Share</div>
+          </div>
+
           {!isLoading ? (
             <div>
               <div className='my-4'>

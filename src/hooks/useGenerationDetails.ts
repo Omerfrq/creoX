@@ -2,6 +2,7 @@ import { useQuery } from 'react-query';
 import Api from '../api';
 import { useState } from 'react';
 import { QUERY_KEYS } from './const';
+import { useAppSelector } from '../redux/store';
 
 export const useGenerationDetails = ({
   id,
@@ -10,6 +11,7 @@ export const useGenerationDetails = ({
   id: string;
   enabled: boolean;
 }) => {
+  const { userId } = useAppSelector((state) => state.storeSlice);
   const [loading, setLoading] = useState(true);
   const { data, refetch, isError } = useQuery(
     [QUERY_KEYS.GENERATION_IMAGE_DETAILS, id],

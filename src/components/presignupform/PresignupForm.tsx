@@ -6,6 +6,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Loader } from '../common/Loader';
 import { useRouter } from 'next/router';
+import { useAppSelector } from '@/src/redux/store';
 
 const sigmar = Sigmar_One({
   subsets: ['latin'],
@@ -25,6 +26,7 @@ export const PresignForm = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { userId } = useAppSelector((state) => state.storeSlice);
 
   const { mutation } = usePreSignup();
   const router = useRouter();
@@ -35,6 +37,7 @@ export const PresignForm = ({
         emailAddress: data.emailAddress,
         generations: [imageUrl],
         productCategory: category.type,
+        userId,
       };
       mutation.mutateAsync(payload, {
         onSuccess: () => {

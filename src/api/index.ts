@@ -81,19 +81,12 @@ export class Api {
 
   generationImage = async (payload: {
     keywords: string[];
-    category: 'TSHIRT';
+    category: string;
+    userId: string;
     style: string;
   }) => {
     try {
-      const res = await axios.post(
-        `${API_URL}/generation/try`,
-        payload
-        // {
-        //   headers: {
-        //     Authorization: `Bearer 08505d9d-1eb2-4033-a6de-5812f875dfde`,
-        //   },
-        // }
-      );
+      const res = await axios.post(`${API_URL}/generation/try`, payload);
       return res.data;
     } catch (err) {
       AxiosErrorValidate(err);
@@ -199,6 +192,7 @@ export class Api {
     emailAddress: string;
     generations: string[];
     productCategory: string;
+    userId: string;
   }) => {
     try {
       const res = await axios.post(`${API_URL}/pre-signups`, payload);

@@ -6,6 +6,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Loader } from '../common/Loader';
 import { useRouter } from 'next/router';
+import { useAppSelector } from '@/src/redux/store';
 
 const sigmar = Sigmar_One({
   subsets: ['latin'],
@@ -13,7 +14,13 @@ const sigmar = Sigmar_One({
   variable: '--font-sigmar',
 });
 
-export const ComingSoonForm = ({ imageUrl }: { imageUrl: string }) => {
+export const ComingSoonForm = ({
+  imageUrl,
+  type,
+}: {
+  imageUrl?: string;
+  type?: string;
+}) => {
   const {
     register,
     handleSubmit,
@@ -21,12 +28,14 @@ export const ComingSoonForm = ({ imageUrl }: { imageUrl: string }) => {
   } = useForm();
   const router = useRouter();
   const { mutation } = usePreSignup();
+  const { userId } = useAppSelector((state) => state.storeSlice);
 
   const onSubmit = (data: any) => {
     const payload = {
       emailAddress: data.emailAddress,
-      productCategory: 'tshirt',
+      productCategory: type ?? 'tshirt',
       imageUrl,
+      guestId: userId,
     };
     mutation.mutateAsync(payload, {
       onSuccess: () => {
@@ -38,17 +47,19 @@ export const ComingSoonForm = ({ imageUrl }: { imageUrl: string }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {mutation.isLoading ? <Loader /> : null}
-      <div className='flex flex-col h-[95vh] justify-between'>
-        <div className='flex -mt-6 flex-1 flex-col    rounded-md '>
+      <div className='flex flex-col h-[90vh] justify-between'>
+        <div className='flex -mt-[2.6rem] flex-1 flex-col    rounded-md '>
           <div className='relative flex-col flex items-center justify-center '>
-            <img className='h-[56]vh' src={'/comingsoon.png'} alt='' />
+            <img className='h-[56vh] w-full' src={'/comingsoon2.svg'} alt='' />
             <div
               className={`${sigmar.variable} -mt-4 text-center text-2xl font-sigmarOne px-6 font-semibold `}
             >
               Coming Soon
             </div>
             <div className='text-center px-6  mt-3 text-gray-400'>
-              Signup now and we will notify when you can generate more images.
+              {type === 'credit'
+                ? 'Signup now and we will notify when you can generate more credits.'
+                : 'Signup now and we will notify when you can get more images.'}
             </div>
           </div>
           <div className='mt-2 px-6'>

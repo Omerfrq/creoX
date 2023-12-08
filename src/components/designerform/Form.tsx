@@ -1,6 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAI } from '@/src/hooks/useAI';
 import BottomSheet from '../common/BottomSheet';
@@ -11,6 +9,8 @@ import { classNames } from '@/src/utils/helpers';
 import { useGenerationDetails } from '@/src/hooks/useGenerationDetails';
 import { BuyCredits } from '../common/BuyCredits';
 import { Generations } from '../generation/ViewExamples';
+import { ComingSoonForm } from '../presignupform/ComingSoonForm';
+import { useAppSelector } from '@/src/redux/store';
 
 const sigmar = Sigmar_One({
   subsets: ['latin'],
@@ -31,18 +31,32 @@ export const DesignerForm = () => {
     },
   });
 
+  const { userId } = useAppSelector((state) => state.storeSlice);
+
+  const [credits, setCredits] = useState('1');
+
+  useEffect(() => {
+    const currentCredits = localStorage.getItem('credits');
+
+    if (credits) {
+      setCredits(currentCredits ?? '1');
+    }
+  }, [credits]);
+
   const [error, setError] = useState(false);
-  const [id, setId] = useState();
+  const [id, setId] = useState('');
 
   const [enabled, setEnabled] = useState(false);
 
   const [openForm, setOpenForm] = useState(false);
 
+  const [openComingSoon, setOpenComingSoon] = useState(false);
+
   const [fields, setFields] = useState<any>([]);
 
   const [open, setOpen] = useState(false);
 
-  const handleAddKeyword = (data) => {
+  const handleAddKeyword = (data: any) => {
     const newFields = fields?.length
       ? [...fields, data.keyword]
       : [data.keyword];
@@ -65,28 +79,34 @@ export const DesignerForm = () => {
   });
 
   const onSubmit = () => {
-    setLoading(true);
+    if (credits === '0') {
+      setOpenComingSoon(true);
+    } else {
+      setLoading(true);
+      localStorage.setItem('credits', '0');
 
-    const sentPayload = {
-      keywords: fields,
-      category: 'TSHIRT',
-      style: 'vivid',
-    };
+      const sentPayload = {
+        keywords: fields,
+        category: 'TSHIRT',
+        style: 'vivid',
+        userId,
+      };
 
-    setOpen(true);
+      setOpen(true);
 
-    mutation.mutateAsync(sentPayload, {
-      onSuccess: (data) => {
-        if (data?.status !== 'error' || data.error) {
-          setId(data.id);
-          setEnabled(true);
-        } else {
-          setLoading(false);
-          setEnabled(false);
-          setError(true);
-        }
-      },
-    });
+      mutation.mutateAsync(sentPayload, {
+        onSuccess: (data) => {
+          if (data?.status !== 'error' || data.error) {
+            setId(data.id);
+            setEnabled(true);
+          } else {
+            setLoading(false);
+            setEnabled(false);
+            setError(true);
+          }
+        },
+      });
+    }
   };
 
   const onCloseBottomSheet = () => {
@@ -95,6 +115,14 @@ export const DesignerForm = () => {
 
   return (
     <>
+      <BottomSheet
+        open={openComingSoon}
+        onClose={() => setOpenComingSoon(false)}
+      >
+        <BottomSheet.Content height='auto'>
+          <ComingSoonForm type='credit' />
+        </BottomSheet.Content>
+      </BottomSheet>
       <BottomSheet open={openForm} onClose={() => setOpenForm(false)}>
         <BottomSheet.Content
           title='Add Keyword'
@@ -228,10 +256,12 @@ export const DesignerForm = () => {
         <Generations />
         <button
           onClick={onSubmit}
-          disabled={fields.length < 3 || fields.length > 6}
+          disabled={
+            credits === '0' ? false : fields.length < 3 || fields.length > 6
+          }
           className='flex items-center disabled:bg-gray-200/20 justify-center w-full py-3.5 bg-primary rounded-full text-black text-sm font-normal'
         >
-          Get Weird
+          {credits === '0' ? 'Get Credits' : 'Get Weird'}
         </button>
       </div>
     </>

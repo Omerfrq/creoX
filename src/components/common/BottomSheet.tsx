@@ -53,7 +53,7 @@ const BottomSheetContent = ({
           )}
         >
           <div className='pt-2 relative'>
-            <div className='mx-auto w-10 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-3' />
+            <div className='mx-auto z-30 w-10 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-3' />
             {title ? (
               <div className='border-0 pb-3 font-medium text-center border-primary border-b border-solid'>
                 {title}

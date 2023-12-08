@@ -11,6 +11,7 @@ interface StoreSlice {
   deliveryAddress?: string;
   orderType?: string;
   openCart: boolean;
+  userId: string;
 }
 
 const initialState: StoreSlice = {
@@ -20,6 +21,7 @@ const initialState: StoreSlice = {
   deliveryAddress: undefined,
   orderType: 'PICKUP',
   openCart: false,
+  userId: '',
 };
 
 const storeSlice = createSlice({
@@ -28,6 +30,9 @@ const storeSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
+    },
+    setUserId: (state, action) => {
+      state.userId = action.payload;
     },
     setCurrentSelectedCardId: (state, action) => {
       state.cardId = action.payload;
@@ -55,6 +60,7 @@ export type StoreActions = typeof storeSlice.actions;
 export const {
   setUser,
   openCart,
+  setUserId,
   closeCart,
   setCurrentSelectedCardId,
   setDeliveryAddress,

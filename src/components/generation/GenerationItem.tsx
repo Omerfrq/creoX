@@ -54,7 +54,7 @@ export const GenerationItem = ({ generation }: { generation: Generation }) => {
                 </div>
               </BottomSheet.Content>
             </BottomSheet>
-            <div className='relative rounded-md h-[280px] w-full'>
+            <div className='relative rounded-md h-[320px] w-full'>
               <Image
                 layout='fill'
                 unoptimized

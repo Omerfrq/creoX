@@ -22,7 +22,7 @@ export const BuyCredits = ({ onClose }) => {
           onClick={onClose}
           className='flex items-center text-primary justify-center w-full py-3.5 border border-primary rounded-full text-sm font-normal'
         >
-          Maybe next time
+          Okay
         </button>
       </div>
     </div>

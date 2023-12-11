@@ -48,11 +48,11 @@ export const ComingSoonForm = ({
     <form onSubmit={handleSubmit(onSubmit)}>
       {mutation.isLoading ? <Loader /> : null}
       <div className='flex flex-col h-[90vh] justify-between'>
-        <div className='flex -mt-[2.6rem] flex-1 flex-col    rounded-md '>
+        <div className='flex  flex-1 flex-col    rounded-md '>
           <div className='relative flex-col flex items-center justify-center '>
-            <img className='h-[56vh] w-full' src={'/comingsoon2.svg'} alt='' />
+            <img className=' w-full' src={'/comingsoon2.svg'} alt='' />
             <div
-              className={`${sigmar.variable} -mt-4 text-center text-2xl font-sigmarOne px-6 font-semibold `}
+              className={`${sigmar.variable} mt-4 text-center text-2xl font-sigmarOne px-6 font-semibold `}
             >
               Coming Soon
             </div>

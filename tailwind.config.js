@@ -12,6 +12,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#02FAE4',
+        brandPurple: '#FF5DF5',
       },
       fontFamily: {
         sans: ['var(--font-inter)'],

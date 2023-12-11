@@ -103,7 +103,7 @@ const Output = ({ details, isLoading, onClose, onRefresh }: Props) => {
           <div className='px-4 py-5 w-full'>
             <div className='mt-1 flex rounded-md shadow-sm '>
               <input
-                value={details?.value[0].shareUrl}
+                value={details?.value?.[0].shareUrl}
                 disabled
                 type='text'
                 name='company-website'

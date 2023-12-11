@@ -96,9 +96,9 @@ export class Api {
   generationImageDetails = async (id: string) => {
     try {
       const res = await axios.get(`${API_URL}/generation/${id}`, {
-        headers: {
-          Authorization: `Bearer 08505d9d-1eb2-4033-a6de-5812f875dfde`,
-        },
+        // headers: {
+        //   Authorization: `Bearer 08505d9d-1eb2-4033-a6de-5812f875dfde`,
+        // },
       });
       return res.data;
     } catch (err) {
